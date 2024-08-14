@@ -11,4 +11,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
+    <string name="emailID">Email ID</string>
+    <string name="confirm_password">Re-enter the password</string>
+    <string name="getOTP">Get OTP</string>
 </resources>

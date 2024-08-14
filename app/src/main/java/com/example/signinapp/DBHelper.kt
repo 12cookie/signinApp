@@ -15,6 +15,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val query = ("CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, " +
                 NAME_COL + " TEXT," +
+                EMAIL_COL + " TEXT," +
                 USERNAME_COL + " TEXT," +
                 PASSWORD_COL + " TEXT" + ")")
         db.execSQL(query)
@@ -26,11 +27,12 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         onCreate(db)
     }
 
-    fun addUser(name : String, username : String, password : String )
+    fun addUser(name : String, emailID : String, username : String, password : String )
     {
         val values = ContentValues()
 
         values.put(NAME_COL, name)
+        values.put(EMAIL_COL, emailID)
         values.put(USERNAME_COL, username)
         values.put(PASSWORD_COL, password)
         val db = this.writableDatabase
@@ -38,6 +40,27 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.insert(TABLE_NAME, null, values)
         getDBData()
         db.close()
+    }
+
+    fun checkUser(username: String, password: String): Boolean
+    {
+        val columns = arrayOf(ID_COL)
+        val db = this.readableDatabase
+        val selection = "$USERNAME_COL = ? AND $PASSWORD_COL = ?"
+        val selectionArgs = arrayOf(username, password)
+
+        val cursor = db.query(TABLE_NAME,
+            columns, //columns to return
+            selection, //columns for the WHERE clause
+            selectionArgs, //The values for the WHERE clause
+            null,  //group the rows
+            null, //filter by row groups
+            null) //The sort order
+
+        val cursorCount = cursor.count
+        cursor.close()
+        db.close()
+        return cursorCount > 0
     }
 
     private fun getDBData()
@@ -84,6 +107,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         const val TABLE_NAME = "app_table"
         const val ID_COL = "id"
         const val NAME_COL = "name"
+        const val EMAIL_COL = "email"
         const val USERNAME_COL = "username"
         const val PASSWORD_COL = "password"
     }
