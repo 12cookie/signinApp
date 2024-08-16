@@ -100,6 +100,28 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         }
     }
 
+    fun updatePassword(email: String, password: String)
+    {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(PASSWORD_COL, password)
+        }
+
+        try {
+            db.update(
+                TABLE_NAME,
+                values,
+                "$EMAIL_COL = ?",
+                arrayOf(email)
+            )
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.close()
+        }
+    }
+
+
     companion object
     {
         private const val DATABASE_NAME = "APP_DB"

@@ -35,6 +35,14 @@
             android:name=".ForgotActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".OTPInput"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ConfirmPassword"
+            android:exported="false"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

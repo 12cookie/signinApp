@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">signinApp</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="reset">Reset Your Password</string>
+    <string name="newpass">New Password</string>
+    <string name="confirmpass">Re-enter your password</string>
+    <string name="submit">Submit</string>
+    <string name="verification">OTP Verification</string>
+    <string name="Input">Enter your OTP</string>
+    <string name="Verify">Verify</string>
     <string name="login">Login</string>
     <string name="signup">Sign up</string>
     <string name="signin">Sign in</string>
