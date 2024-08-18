@@ -44,15 +44,9 @@ class SignUpActivity : AppCompatActivity()
                 val username = sUsername.text.toString()
                 val password = sPassword.text.toString()
                 val confirmPassword = sConfirmPassword.text.toString()
-                if(password == confirmPassword)
-                {
-                    button.isEnabled = name.isNotEmpty() && email.isNotEmpty() &&
-                                       username.isNotEmpty() && password.isNotEmpty()
-                }
-                else
-                {
-                    Toast.makeText(applicationContext, "This a toast message", Toast.LENGTH_LONG).show()
-                }
+                button.isEnabled = name.isNotEmpty() && email.isNotEmpty() &&
+                                   confirmPassword.isNotEmpty() &&
+                                   username.isNotEmpty() && password.isNotEmpty()
             }
             override fun afterTextChanged(s: Editable?) {}
         }
@@ -68,17 +62,26 @@ class SignUpActivity : AppCompatActivity()
             val email = sEmail.text.toString()
             val username = sUsername.text.toString()
             val password = sPassword.text.toString()
-            val db = DBHelper(this, null)
-            db.addUser(name, email, username, password)
+            val cPassword = sConfirmPassword.text.toString()
 
-            sName.text.clear()
-            sEmail.text.clear()
-            sUsername.text.clear()
-            sPassword.text.clear()
-            sConfirmPassword.text.clear()
+            if(password != cPassword)
+            {
+                Toast.makeText(applicationContext, "This a toast message", Toast.LENGTH_LONG).show()
+            }
+            else
+            {
+                val db = DBHelper(this, null)
+                db.addUser(name, email, username, password)
 
-            val intent = Intent(this, LandingActivity::class.java)
-            startActivity(intent)
+                sName.text.clear()
+                sEmail.text.clear()
+                sUsername.text.clear()
+                sPassword.text.clear()
+                sConfirmPassword.text.clear()
+
+                val intent = Intent(this, LandingActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
