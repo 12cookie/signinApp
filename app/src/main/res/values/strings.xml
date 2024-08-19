@@ -21,4 +21,12 @@
     <string name="emailID">Email ID</string>
     <string name="confirm_password">Re-enter the password</string>
     <string name="getOTP">Get OTP</string>
+    <string name="selected_language">Selected language:</string>
+    <string name="select_language">Select language:</string>
+    <string-array name="Languages">
+        <item>Hindi</item>
+        <item>Kannada</item>
+        <item>Malayalam</item>
+        <item>Telugu</item>
+    </string-array>
 </resources>
