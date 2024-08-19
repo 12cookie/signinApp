@@ -13,7 +13,7 @@
     <string name="signin">Sign in</string>
     <string name="createAccount">Create account</string>
     <string name="logout">Logout</string>
-    <string name="welcome">Welcome to the home page!</string>
+    <string name="welcome">Text to speech</string>
     <string name="text">Welcome to the home page!</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -23,6 +23,9 @@
     <string name="getOTP">Get OTP</string>
     <string name="selected_language">Selected language:</string>
     <string name="select_language">Select language:</string>
+    <string name="enter_the_text">Enter the text</string>
+    <string name="translated_text">Translated text</string>
+    <string name="synthesize">Synthesize</string>
     <string-array name="Languages">
         <item>Hindi</item>
         <item>Kannada</item>

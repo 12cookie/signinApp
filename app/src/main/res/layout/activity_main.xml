@@ -46,7 +46,7 @@
         android:textAllCaps="false"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/material_on_surface_stroke"
+        android:background="@android:color/transparent"
         android:textColor="@color/red"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
