@@ -25,11 +25,20 @@
     <string name="select_language">Select language:</string>
     <string name="enter_the_text">Enter the text</string>
     <string name="translated_text">Translated text</string>
-    <string name="synthesize">Synthesize</string>
+    <string name="synthesize">Synthesize audio</string>
+    <string name="dropdown">Dropdown</string>
+    <string name="language_message">Please select language</string>
     <string-array name="Languages">
+        <item>--- Select language ---</item>
         <item>Hindi</item>
         <item>Kannada</item>
         <item>Malayalam</item>
         <item>Telugu</item>
+    </string-array>
+    <string-array name="Language_Code">
+        <item>hi</item>
+        <item>kn</item>
+        <item>ml</item>
+        <item>te</item>
     </string-array>
 </resources>

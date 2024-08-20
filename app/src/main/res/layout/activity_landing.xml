@@ -27,39 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textSize="25sp"
+        android:textSize="16sp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome" />
-
-    <TextView
-        android:id="@+id/translatedText"
-        android:hint="@string/translated_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        android:background="@drawable/box"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInput" />
-
-    <TextView
-        android:id="@+id/txtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/select_language"
-        android:textColor="@color/black"
-        android:textSize = "20sp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/translatedText" />
 
     <RelativeLayout
         android:id="@+id/dropdown"
@@ -70,7 +42,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtView" >
+        app:layout_constraintTop_toBottomOf="@id/textInput" >
 
         <Spinner
             android:id="@+id/spinner"
@@ -85,41 +57,48 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:contentDescription="@string/dropdown"
             android:src="@mipmap/dropdown" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/buttons"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_margin="20dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/mini_buttons"
+        android:textColor="@color/white"
+        android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dropdown" >
+        app:layout_constraintTop_toBottomOf="@id/dropdown" />
 
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_margin="40dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mini_buttons"
-            android:textColor="@color/white"
-            android:text="@string/submit" />
+    <TextView
+        android:id="@+id/translatedText"
+        android:hint="@string/translated_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:background="@drawable/box"
+        app:layout_constraintTop_toBottomOf="@id/submit" />
 
-        <Button
-            android:id="@+id/synthesize"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_margin="40dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mini_buttons"
-            android:textColor="@color/white"
-            android:text="@string/synthesize" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/synthesize"
+        android:layout_width="match_parent"
+        android:layout_margin="40dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mini_buttons"
+        android:textColor="@color/white"
+        android:text="@string/synthesize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/translatedText" />
 
     <Button
         android:id="@+id/logout"
@@ -130,9 +109,9 @@
         android:text="@string/logout"
         android:textSize="20sp"
         android:textAllCaps="false"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttons" />
+        app:layout_constraintTop_toBottomOf="@id/synthesize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
