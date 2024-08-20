@@ -22,11 +22,10 @@
 
     <EditText
         android:id="@+id/otpinput"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/Input"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="50dp"
+        android:layout_margin="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView" />
 

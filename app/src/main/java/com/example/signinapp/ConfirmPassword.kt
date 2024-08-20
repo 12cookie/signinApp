@@ -3,6 +3,8 @@ package com.example.signinapp
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -20,14 +22,37 @@ class ConfirmPassword : AppCompatActivity()
         enableEdgeToEdge()
         setContentView(R.layout.activity_confirm_password)
 
+        val intent = intent
+        val extras = intent.extras
+        val username = extras?.getString("Username")
+
         val etpassword= findViewById<EditText>(R.id.newpass)
         val etconfirm = findViewById<EditText>(R.id.renterpass)
         val submitbtn = findViewById<Button> (R.id.submit)
-        submitbtn.setOnClickListener {
-            val password = etpassword.text.toString()
-            val confirmPassword = etconfirm.text.toString()
-            if (password == confirmPassword)
+
+        var password = ""
+        var confirm = ""
+        val loginWatcher = object : TextWatcher
+        {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int)
             {
+                password = etpassword.text.toString()
+                confirm = etconfirm.text.toString()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        }
+        etconfirm.addTextChangedListener(loginWatcher)
+        etpassword.addTextChangedListener(loginWatcher)
+
+        submitbtn.setOnClickListener {
+            if (password == confirm)
+            {
+                val db = DBHelper(this, null)
+                if (username != null)
+                {
+                    db.updatePassword(username, password)
+                }
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

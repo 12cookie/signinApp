@@ -10,11 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 
 class OTPInput : AppCompatActivity()
 {
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_otpinput)
+
+        val intent = intent
+        val extras = intent.extras
+        val username = extras?.getString("Username")
 
         val fPassword = ForgotActivity()
         val otp = fPassword.generateOtp()
@@ -25,6 +30,7 @@ class OTPInput : AppCompatActivity()
             if(otpInput == otp)
             {
                 val intent = Intent(this, ConfirmPassword::class.java)
+                intent.putExtra("Username", username)
                 startActivity(intent)
             }
             else

@@ -63,6 +63,27 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return cursorCount > 0
     }
 
+    fun checkUserInDB(username: String): Boolean
+    {
+        val columns = arrayOf(ID_COL)
+        val db = this.readableDatabase
+        val selection = "$USERNAME_COL = ?"
+        val selectionArgs = arrayOf(username)
+
+        val cursor = db.query(TABLE_NAME,
+            columns, //columns to return
+            selection, //columns for the WHERE clause
+            selectionArgs, //The values for the WHERE clause
+            null,  //group the rows
+            null, //filter by row groups
+            null) //The sort order
+
+        val cursorCount = cursor.count
+        cursor.close()
+        db.close()
+        return cursorCount > 0
+    }
+
     private fun getDBData()
     {
         val selectQuery = "SELECT * FROM $TABLE_NAME"
@@ -100,7 +121,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         }
     }
 
-    fun updatePassword(email: String, password: String)
+    fun updatePassword(username: String, password: String)
     {
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -111,12 +132,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             db.update(
                 TABLE_NAME,
                 values,
-                "$EMAIL_COL = ?",
-                arrayOf(email)
+                "$USERNAME_COL = ?",
+                arrayOf(username)
             )
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
+            getDBData()
             db.close()
         }
     }
