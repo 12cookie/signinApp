@@ -19,7 +19,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.signinapp.model.RequestPayload
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -106,15 +105,13 @@ class LandingActivity : AppCompatActivity()
         val jsonPayload = JSONObject().apply {
             put("pipelineTasks", JSONArray().apply {
                 put(JSONObject().apply {
-                    put("taskType", "transliteration")
+                    put("taskType", "translation")
                     put("config", JSONObject().apply {
                         put("language", JSONObject().apply {
                             put("sourceLanguage", sourceLanguage)
                             put("targetLanguage", targetLanguage)
                         })
-                        put("serviceId", "ai4bharat/indicxlit--cpu-fsv2")
-                        put("isSentence", true)
-                        put("numSuggestions", 0)
+                        put("serviceId", "ai4bharat/indictrans-v2-all-gpu--t4")
                     })
                 })
             })
@@ -122,6 +119,11 @@ class LandingActivity : AppCompatActivity()
                 put("input", JSONArray().apply {
                     put(JSONObject().apply {
                         put("source", text)
+                    })
+                })
+                put("audio", JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("audioContent", null)
                     })
                 })
             })
@@ -135,9 +137,10 @@ class LandingActivity : AppCompatActivity()
             {
                 response ->
                 val pipelineResponse = response.getJSONArray("pipelineResponse")
-                val outputObject = pipelineResponse.getJSONObject(0).getJSONArray("output").getJSONObject(0)
-                val targetArray = outputObject.getJSONArray("target")
-                val responseText = targetArray.getString(0)
+                val firstItem = pipelineResponse.getJSONObject(0)
+                val output = firstItem.getJSONArray("output")
+                val outputItem = output.getJSONObject(0)
+                val responseText = outputItem.getString("target")
                 translatedText.text = responseText
                 Log.d("API Response", responseText)
             },
@@ -152,7 +155,7 @@ class LandingActivity : AppCompatActivity()
                 return mutableMapOf (
                     "Accept" to "*/*",
                     "User-Agent" to "Thunder Client (https://www.thunderclient.com)",
-                    "Authorization" to "nrKuyRXJw4TItCZ5eVvdo0tlIu627G3f_9kzLaHJqEneWIQU5V85KdXppVToEzCr",
+                    "Authorization" to "J4G_NJzGen06N8KiAxeGCB-IJHeLvFz72jCPD9Cs3Mg5CAAUeElc3XXiqfSK5nP3",
                     "Content-Type" to "application/json"
                 )
             }
