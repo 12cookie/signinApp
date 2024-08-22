@@ -1,7 +1,9 @@
 package com.example.signinapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,15 +13,21 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -32,10 +40,14 @@ class LandingActivity : AppCompatActivity()
     private lateinit var spinner: Spinner
     private lateinit var submitButton: Button
     private lateinit var synthesize: Button
-    private lateinit var logoutButton: Button
+    private lateinit var logoutButton: ImageView
     private lateinit var serviceID: String
     private lateinit var auth: String
+    private lateinit var audio: ImageView
+    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var loader:ImageView
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -44,7 +56,11 @@ class LandingActivity : AppCompatActivity()
 
         sText = findViewById(R.id.textInput)
         translatedText = findViewById(R.id.translatedText)
-        spinner = findViewById<Spinner>(R.id.spinner)
+        spinner = findViewById(R.id.spinner)
+
+        audio = findViewById(R.id.audio)
+        loader=findViewById(R.id.loader)
+        mediaPlayer = MediaPlayer()
 
         val languages = resources.getStringArray(R.array.Languages)
         val languageCode = resources.getStringArray(R.array.Language_Code)
@@ -52,6 +68,9 @@ class LandingActivity : AppCompatActivity()
         val sourceLanguage = "en"
         var targetLanguage: String = ""
         var text: String = ""
+
+        Glide.with(this).load(R.drawable.audio).into(audio)
+        Glide.with(this).load(R.drawable.loader).into(loader)
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languages)
         spinner.adapter = adapter
@@ -95,6 +114,7 @@ class LandingActivity : AppCompatActivity()
             }
             else
             {
+                loader.visibility=ImageView.VISIBLE
                 requestQueue = Volley.newRequestQueue(this)
                 makeApiRequest(sourceLanguage, targetLanguage, text)
             }
@@ -109,11 +129,12 @@ class LandingActivity : AppCompatActivity()
             else
             {
                 requestQueue = Volley.newRequestQueue(this)
+                loader.visibility=ImageView.VISIBLE
                 getServiceID(targetLanguage)
             }
         }
 
-        logoutButton = findViewById<Button>(R.id.logout)
+        logoutButton = findViewById(R.id.logout)
         logoutButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -163,11 +184,13 @@ class LandingActivity : AppCompatActivity()
                 val responseText = outputItem.getString("target")
                 translatedText.text = responseText
                 Log.d("API Response", responseText)
+                loader.visibility=ImageView.GONE
             },
             Response.ErrorListener
             {
                 error ->
                 Log.e("API Error", error.toString())
+                loader.visibility=ImageView.GONE
             })
         {
             override fun getHeaders(): MutableMap<String, String>
@@ -226,11 +249,13 @@ class LandingActivity : AppCompatActivity()
                 val outputItem = output.getJSONObject(0)
                 val responseText = outputItem.getString("audioContent")
                 playAudio(responseText)
+                loader.visibility=ImageView.GONE
             },
             Response.ErrorListener
             {
                 error ->
                 Log.e("API Error", error.toString())
+                loader.visibility=ImageView.GONE
             })
         {
             override fun getHeaders(): MutableMap<String, String>
@@ -350,10 +375,17 @@ class LandingActivity : AppCompatActivity()
                 e.printStackTrace()
             }
 
-            mediaPlayer.setOnPreparedListener { player -> player.start() }
+            mediaPlayer.setOnPreparedListener {
+                player -> player.start()
+                audio.visibility=ImageView.VISIBLE
+                loader.visibility=ImageView.GONE
+
+            }
             mediaPlayer.setOnCompletionListener { mp ->
                 mp.stop()
                 mp.release()
+                audio.visibility=ImageView.GONE
+                loader.visibility=ImageView.GONE
             }
         }
         catch (e: Exception)
