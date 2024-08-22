@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31" >
         <activity
-            android:name=".MainActivity"
+            android:name=".LandingActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -29,7 +29,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LandingActivity"
+            android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

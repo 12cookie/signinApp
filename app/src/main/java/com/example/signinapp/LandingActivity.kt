@@ -1,6 +1,7 @@
 package com.example.signinapp
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.IOException
 
 class LandingActivity : AppCompatActivity()
 {
@@ -28,6 +30,11 @@ class LandingActivity : AppCompatActivity()
     private lateinit var requestQueue: RequestQueue
     private lateinit var translatedText: TextView
     private lateinit var spinner: Spinner
+    private lateinit var submitButton: Button
+    private lateinit var synthesize: Button
+    private lateinit var logoutButton: Button
+    private lateinit var serviceID: String
+    private lateinit var auth: String
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -80,7 +87,7 @@ class LandingActivity : AppCompatActivity()
         }
         sText.addTextChangedListener(loginWatcher)
 
-        val submitButton = findViewById<Button>(R.id.submit)
+        submitButton = findViewById<Button>(R.id.submit)
         submitButton.setOnClickListener {
             if (targetLanguage.isEmpty())
             {
@@ -93,8 +100,21 @@ class LandingActivity : AppCompatActivity()
             }
         }
 
-        val button = findViewById<Button>(R.id.logout)
-        button.setOnClickListener {
+        synthesize = findViewById(R.id.synthesize)
+        synthesize.setOnClickListener {
+            if (targetLanguage.isEmpty())
+            {
+                Toast.makeText(this@LandingActivity, getString(R.string.language_message), Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                requestQueue = Volley.newRequestQueue(this)
+                getServiceID(targetLanguage)
+            }
+        }
+
+        logoutButton = findViewById<Button>(R.id.logout)
+        logoutButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
@@ -161,5 +181,184 @@ class LandingActivity : AppCompatActivity()
             }
         }
         requestQueue.add(request)
+    }
+
+    private fun synthesizeAudio(targetLanguage: String?, text: String)
+    {
+        val jsonPayload = JSONObject().apply {
+            put("pipelineTasks", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("taskType", "tts")
+                    put("config", JSONObject().apply {
+                        put("language", JSONObject().apply {
+                            put("sourceLanguage", targetLanguage)
+                        })
+                        put("serviceId", serviceID)
+                        put("gender", "female")
+                    })
+                })
+            })
+            put("inputData", JSONObject().apply {
+                put("input", JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("source", text)
+                    })
+                })
+                put("audio", JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("audioContent", null)
+                    })
+                })
+            })
+        }
+
+        Log.e("Payload", jsonPayload.toString())
+        val request = object : JsonObjectRequest
+            (Method.POST,
+            "https://dhruva-api.bhashini.gov.in/services/inference/pipeline",
+            jsonPayload,
+            Response.Listener
+            {
+                response ->
+                val pipelineResponse = response.getJSONArray("pipelineResponse")
+                val firstItem = pipelineResponse.getJSONObject(0)
+                val output = firstItem.getJSONArray("audio")
+                val outputItem = output.getJSONObject(0)
+                val responseText = outputItem.getString("audioContent")
+                playAudio(responseText)
+            },
+            Response.ErrorListener
+            {
+                error ->
+                Log.e("API Error", error.toString())
+            })
+        {
+            override fun getHeaders(): MutableMap<String, String>
+            {
+                return mutableMapOf (
+                    "Accept" to "*/*",
+                    "User-Agent" to "Thunder Client (https://www.thunderclient.com)",
+                    "Authorization" to auth,
+                    "Content-Type" to "application/json"
+                )
+            }
+        }
+        requestQueue.add(request)
+    }
+
+    private fun getServiceID(targetLanguage: String?)
+    {
+        val jsonPayload = JSONObject().apply {
+            put("pipelineTasks", JSONArray().apply {
+                put(JSONObject().apply {
+                    put("taskType", "tts")
+                    put("config", JSONObject().apply {
+                        put("language", JSONObject().apply {
+                            put("sourceLanguage", targetLanguage)
+                        })
+                    })
+                })
+            })
+            put("pipelineRequestConfig", JSONObject().apply {
+                put("pipelineId", "64392f96daac500b55c543cd")
+                })
+        }
+
+        Log.e("Payload", jsonPayload.toString())
+        val request = object : JsonObjectRequest
+            (Method.POST,
+            "https://meity-auth.ulcacontrib.org/ulca/apis/v0/model/getModelsPipeline",
+            jsonPayload,
+            Response.Listener
+            {
+                response ->
+                val pipelineResponseConfig = response.getJSONArray("pipelineResponseConfig")
+                val firstItem = pipelineResponseConfig.getJSONObject(0)
+                val config = firstItem.getJSONArray("config")
+                val outputItem = config.getJSONObject(0)
+                serviceID = outputItem.getString("serviceId")
+                Log.d("API Error", serviceID)
+
+                val pipelineInferenceAPIEndPoint = response.getJSONObject("pipelineInferenceAPIEndPoint")
+                val inferenceApiKey = pipelineInferenceAPIEndPoint.getJSONObject("inferenceApiKey")
+                auth = inferenceApiKey.getString("value")
+                Log.d("API Error", auth)
+
+                requestQueue = Volley.newRequestQueue(this)
+                synthesizeAudio(targetLanguage, translatedText.text.toString())
+            },
+            Response.ErrorListener
+            {
+                    error ->
+                Log.e("API Error", error.toString())
+            })
+        {
+            override fun getHeaders(): MutableMap<String, String>
+            {
+                return mutableMapOf (
+                    "Accept" to "*/*",
+                    "User-Agent" to "Thunder Client (https://www.thunderclient.com)",
+                    "ulcaApiKey" to "2450b4fa21-7f80-4a8f-b0b3-24beb72a3138",
+                    "userID" to "1697231e6cb546d4a346972eebaad3e7",
+                    "Content-Type" to "application/json"
+                )
+            }
+        }
+        requestQueue.add(request)
+    }
+
+    fun playAudio(base64FormattedString: String)
+    {
+        try
+        {
+            val url = "data:audio/mp3;base64,$base64FormattedString"
+            val mediaPlayer = MediaPlayer()
+
+            try
+            {
+                mediaPlayer.setDataSource(url)
+                mediaPlayer.prepareAsync()
+                mediaPlayer.setVolume(100f, 100f)
+                mediaPlayer.isLooping = false
+            }
+            catch (e: IllegalArgumentException)
+            {
+                Toast.makeText(
+                    applicationContext,
+                    "You might not set the DataSource correctly!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            catch (e: SecurityException)
+            {
+                Toast.makeText(
+                    applicationContext,
+                    "You might not set the DataSource correctly!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            catch (e: IllegalStateException)
+            {
+                Toast.makeText(
+                    applicationContext,
+                    "You might not set the DataSource correctly!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            catch (e: IOException)
+            {
+                e.printStackTrace()
+            }
+
+            mediaPlayer.setOnPreparedListener { player -> player.start() }
+            mediaPlayer.setOnCompletionListener { mp ->
+                mp.stop()
+                mp.release()
+            }
+        }
+        catch (e: Exception)
+        {
+            e.printStackTrace()
+        }
     }
 }

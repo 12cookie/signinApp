@@ -30,17 +30,35 @@
     <string name="language_message">Please select language</string>
     <string-array name="Languages">
         <item>--- Select language ---</item>
+        <item>Assamese</item>
+        <item>Bangla</item>
+        <item>Gujarati</item>
         <item>Hindi</item>
+        <item>Kashmiri</item>
         <item>Kannada</item>
         <item>Malayalam</item>
-        <item>Telugu</item>
+        <item>Marathi</item>
+        <item>Oriya</item>
+        <item>Punjabi</item>
         <item>Tamil</item>
+        <item>Telugu</item>
+        <item>Sindhi</item>
+        <item>Urdu</item>
     </string-array>
     <string-array name="Language_Code">
+        <item>as</item>
+        <item>bn</item>
+        <item>gu</item>
         <item>hi</item>
+        <item>ks</item>
         <item>kn</item>
         <item>ml</item>
-        <item>te</item>
+        <item>mr</item>
+        <item>or</item>
+        <item>pa</item>
         <item>ta</item>
+        <item>te</item>
+        <item>sd</item>
+        <item>ur</item>
     </string-array>
 </resources>
