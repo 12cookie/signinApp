@@ -77,6 +77,16 @@
             android:src="@mipmap/dropdown" />
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:visibility="gone"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/dropdown"
+        app:layout_constraintTop_toBottomOf="@id/textInput"/>
+
     <TextView
         android:id="@+id/translatedText"
         android:hint="@string/translated_text"
@@ -91,7 +101,7 @@
 
     <Button
         android:id="@+id/synthesize"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_margin="40dp"
         android:layout_height="wrap_content"
         android:background="@drawable/mini_buttons"
@@ -100,6 +110,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/translatedText" />
+
+    <ProgressBar
+        android:id="@+id/audioLoader"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:visibility="gone"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintStart_toEndOf="@id/synthesize"
+        app:layout_constraintTop_toBottomOf="@id/translatedText"/>
 
     <ImageView
         android:id="@+id/audio"

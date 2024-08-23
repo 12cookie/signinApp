@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.text.Editable
@@ -16,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -46,7 +46,10 @@ class LandingActivity : AppCompatActivity()
     private val delayMillis: Long = 1000
     private val handler = Handler(Looper.getMainLooper())
     private var runnable: Runnable? = null
+    private lateinit var translateLoader: ProgressBar
+    private lateinit var audioLoader: ProgressBar
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,8 @@ class LandingActivity : AppCompatActivity()
         spinner = findViewById(R.id.spinner)
         audio = findViewById(R.id.audio)
         mediaPlayer = MediaPlayer()
+        translateLoader = findViewById(R.id.loader)
+        audioLoader = findViewById(R.id.audioLoader)
 
         val languages = resources.getStringArray(R.array.Languages)
         val languageCode = resources.getStringArray(R.array.Language_Code)
@@ -80,6 +85,7 @@ class LandingActivity : AppCompatActivity()
                 runnable = Runnable {
                     if(targetLanguage.isNotEmpty() && text.isNotEmpty())
                     {
+                        translateLoader.visibility = View.VISIBLE
                         getTranslationServiceID(sourceLanguage, targetLanguage, text)
                     }
                     else
@@ -106,6 +112,7 @@ class LandingActivity : AppCompatActivity()
                     Toast.makeText(this@LandingActivity, getString(R.string.selected_language) + " " + languages[position], Toast.LENGTH_SHORT).show()
                     if(text.isNotEmpty())
                     {
+                        translateLoader.visibility = View.VISIBLE
                         getTranslationServiceID(sourceLanguage, targetLanguage, text)
                     }
                 }
@@ -125,6 +132,8 @@ class LandingActivity : AppCompatActivity()
             }
             else
             {
+                audioLoader.visibility = View.VISIBLE
+                synthesize.isEnabled = false
                 requestQueue = Volley.newRequestQueue(this)
                 getAudioServiceID(targetLanguage)
             }
@@ -240,6 +249,7 @@ class LandingActivity : AppCompatActivity()
                 val output = firstItem.getJSONArray("output")
                 val outputItem = output.getJSONObject(0)
                 val responseText = outputItem.getString("target")
+                translateLoader.visibility = View.GONE
                 translatedText.text = responseText
                 Log.d("API", response.toString())
             },
@@ -431,13 +441,14 @@ class LandingActivity : AppCompatActivity()
 
             mediaPlayer.setOnPreparedListener {
                 player -> player.start()
+                audioLoader.visibility = View.GONE
                 audio.visibility=ImageView.VISIBLE
-
             }
             mediaPlayer.setOnCompletionListener { mp ->
                 mp.stop()
                 mp.release()
                 audio.visibility=ImageView.GONE
+                synthesize.isEnabled = true
             }
         }
         catch (e: Exception)
