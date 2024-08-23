@@ -11,6 +11,7 @@
         android:id="@+id/logout"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:contentDescription="@string/logout"
         android:textColor="@color/white"
         android:text="@string/logout"
         android:textSize="20sp"
@@ -76,18 +77,6 @@
             android:src="@mipmap/dropdown" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/mini_buttons"
-        android:textColor="@color/white"
-        android:text="@string/submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/dropdown" />
-
     <TextView
         android:id="@+id/translatedText"
         android:hint="@string/translated_text"
@@ -98,7 +87,7 @@
         android:layout_margin="20dp"
         android:padding="10dp"
         android:background="@drawable/box"
-        app:layout_constraintTop_toBottomOf="@id/submit" />
+        app:layout_constraintTop_toBottomOf="@id/dropdown" />
 
     <Button
         android:id="@+id/synthesize"
@@ -112,22 +101,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/translatedText" />
 
-
     <ImageView
         android:id="@+id/audio"
         android:layout_width="400dp"
         android:layout_height="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/synthesize"
-        android:visibility="gone"
-        />
-
-    <ImageView
-        android:id="@+id/loader"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="30dp"
+        android:contentDescription="@string/audio_bars"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/synthesize"

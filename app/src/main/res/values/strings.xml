@@ -28,6 +28,7 @@
     <string name="synthesize">Synthesize audio</string>
     <string name="dropdown">Dropdown</string>
     <string name="language_message">Please select language</string>
+    <string name="audio_bars">Audio bars</string>
     <string-array name="Languages">
         <item>--- Select language ---</item>
         <item>Assamese</item>
