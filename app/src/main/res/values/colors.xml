@@ -5,4 +5,13 @@
     <color name="red">#CE2029</color>
     <color name="blue">#03A9F4</color>
     <color name="darkgrey">#5A5A5A</color>
+    <color name="app_theme">#EDE7D7</color>
+    <color name="app_theme_light">#8B4513</color>
+    <color name="edit_text_border">#03A9f4</color>
+    <color name="edit_text_background">#8B4513</color>
+    <color name="mutedred">#FF0000</color>
+    <color name="card">#FAF9F6</color>
 </resources>
+
+<!--<corners android:radius="10dp"/>-->
+<!--<stroke android:color="@color/green" android:width="3dp"></stroke>-->

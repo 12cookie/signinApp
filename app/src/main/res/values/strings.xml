@@ -14,6 +14,8 @@
     <string name="createAccount">Create account</string>
     <string name="logout">Logout</string>
     <string name="welcome">Text to speech</string>
+    <string name="Bhashini">Transform Text to Voice with Bhashini\'s Precision.</string>
+    <string name="otptitle">Enter your OTP here </string>
     <string name="text">Welcome to the home page!</string>
     <string name="username">Username</string>
     <string name="password">Password</string>

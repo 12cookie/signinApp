@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.support.annotations)
     implementation(libs.androidx.annotation)
     implementation(libs.glide)
+    implementation (libs.androidx.cardview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
