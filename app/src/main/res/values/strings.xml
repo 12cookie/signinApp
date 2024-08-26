@@ -14,7 +14,7 @@
     <string name="createAccount">Create account</string>
     <string name="logout">Logout</string>
     <string name="welcome">Text to speech</string>
-    <string name="Bhashini">Transform Text to Voice with Bhashini\'s Precision.</string>
+    <string name="Bhashini">Transform Text to Voice with Bhashini\'s Precision</string>
     <string name="otptitle">Enter your OTP here </string>
     <string name="text">Welcome to the home page!</string>
     <string name="username">Username</string>
@@ -31,6 +31,7 @@
     <string name="dropdown">Dropdown</string>
     <string name="language_message">Please select language</string>
     <string name="audio_bars">Audio bars</string>
+    <string name="logo">Logo</string>
     <string-array name="Languages">
         <item>--- Select language ---</item>
         <item>Assamese</item>
