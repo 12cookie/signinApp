@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.chaos.view.PinView
 
 class OTPInput : AppCompatActivity()
 {
@@ -26,7 +27,7 @@ class OTPInput : AppCompatActivity()
 
         val verifyButton = findViewById<Button>(R.id.verify)
         verifyButton.setOnClickListener {
-            val otpInput = findViewById<EditText>(R.id.otpinput).text.toString()
+            val otpInput = findViewById<PinView>(R.id.pinview).text.toString()
             if(otpInput == otp)
             {
                 val intent = Intent(this, ConfirmPassword::class.java)

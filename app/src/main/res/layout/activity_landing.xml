@@ -5,7 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_theme"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/aadhar" />
 
     <ImageView
         android:id="@+id/logout"
@@ -13,119 +25,181 @@
         android:layout_height="80dp"
         android:contentDescription="@string/logout"
         android:src="@drawable/logout"
-        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:tint="#8A4513" />
 
     <TextView
-        android:id="@+id/welcome"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
-        android:textColor="@color/black"
+        android:textColor="@color/app_theme_light"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logout" />
-
-    <EditText
-        android:id="@+id/textInput"
-        android:hint="@string/enter_the_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="60dp"
-        app:layout_constraintTop_toBottomOf="@id/welcome" />
-
-    <RelativeLayout
-        android:id="@+id/dropdown"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:background="@drawable/item"
-        android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInput" >
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:spinnerMode="dropdown" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:contentDescription="@string/dropdown"
-            android:src="@mipmap/dropdown" />
-    </RelativeLayout>
-
-    <ProgressBar
-        android:id="@+id/loader"
-        android:layout_height="40dp"
-        android:layout_width="40dp"
-        android:visibility="gone"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@id/dropdown"
-        app:layout_constraintTop_toBottomOf="@id/textInput"/>
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/translatedText"
-        android:hint="@string/translated_text"
-        android:layout_width="match_parent"
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
+        android:text="Enjoy fast and accurate text-to-speech conversion with Bhashini’s advanced technology.
+
+"
+        android:textColor="@color/app_theme_light"
         android:textSize="16sp"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        android:background="@drawable/box"
-        app:layout_constraintTop_toBottomOf="@id/dropdown" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/synthesize"
-        android:layout_width="250dp"
-        android:layout_margin="40dp"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/mini_buttons"
-        android:textColor="@color/white"
-        android:text="@string/synthesize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/translatedText" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
 
-    <ProgressBar
-        android:id="@+id/audioLoader"
-        android:layout_height="40dp"
-        android:layout_width="40dp"
-        android:visibility="gone"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="45dp"
-        app:layout_constraintStart_toEndOf="@id/synthesize"
-        app:layout_constraintTop_toBottomOf="@id/translatedText"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
+        app:cardCornerRadius="40dp"
+        app:cardBackgroundColor="@color/card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
 
-    <ImageView
-        android:id="@+id/audio"
-        android:layout_width="400dp"
-        android:layout_height="150dp"
-        android:contentDescription="@string/audio_bars"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/synthesize"
-        android:visibility="gone"
-        />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="446dp"
+            app:layout_editor_absoluteX="0dp"
+            app:layout_editor_absoluteY="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Enter your text input here"
+                    android:textColor="@color/app_theme_light"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/textInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/edt_background_txt"
+                    android:hint="@string/enter_the_text"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text1" />
+
+                <RelativeLayout
+                    android:id="@+id/dropdown"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/item"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textInput">
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:background="@drawable/edt_background_txt"
+                        android:gravity="center"
+                        android:spinnerMode="dropdown" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/dropdown"
+                        android:src="@mipmap/dropdown" />
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/loader"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@id/dropdown"
+                    app:layout_constraintTop_toBottomOf="@id/textInput" />
+
+                <TextView
+                    android:id="@+id/translatedText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@drawable/edt_background_txt"
+                    android:hint="@string/translated_text"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/dropdown" />
+
+                <Button
+                    android:id="@+id/synthesize"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:background="@drawable/rounded_buttons"
+                    android:text="@string/synthesize"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/translatedText" />
+
+                <ProgressBar
+                    android:id="@+id/audioLoader"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="45dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@id/synthesize"
+                    app:layout_constraintTop_toBottomOf="@id/translatedText" />
+
+                <ImageView
+                    android:id="@+id/audio"
+                    android:layout_width="400dp"
+                    android:layout_height="150dp"
+                    android:contentDescription="@string/audio_bars"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/synthesize" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
