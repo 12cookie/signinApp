@@ -3,7 +3,6 @@ package com.example.signinapp
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,14 +17,16 @@ class OTPInput : AppCompatActivity()
         enableEdgeToEdge()
         setContentView(R.layout.activity_otpinput)
 
+        val verifyButton = findViewById<Button>(R.id.verify)
+        val regenerateButton = findViewById<Button>(R.id.regenerate)
+
         val intent = intent
         val extras = intent.extras
         val username = extras?.getString("Username")
 
         val fPassword = ForgotActivity()
-        val otp = fPassword.generateOtp()
+        var otp = fPassword.generateOtp()
 
-        val verifyButton = findViewById<Button>(R.id.verify)
         verifyButton.setOnClickListener {
             val otpInput = findViewById<PinView>(R.id.pinview).text.toString()
             if(otpInput == otp)
@@ -38,6 +39,10 @@ class OTPInput : AppCompatActivity()
             {
                 Toast.makeText(this, "Invalid OTP or OTP expired", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        regenerateButton.setOnClickListener {
+            otp = fPassword.generateOtp()
         }
     }
 }

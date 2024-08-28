@@ -54,7 +54,7 @@ class ForgotActivity : AppCompatActivity()
     fun generateOtp(): String
     {
         val otp = Random.nextInt(100000, 999999)
-        Log.d("ForgotActivity", "Generated OTP: $otp")
+        Log.d("otp num", "Generated OTP: $otp")
         return otp.toString().padStart(6, '0')
     }
 }

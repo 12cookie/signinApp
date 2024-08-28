@@ -32,6 +32,12 @@
     <string name="language_message">Please select language</string>
     <string name="audio_bars">Audio bars</string>
     <string name="logo">Logo</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="verify_yourself_to_get_the_access">Verify yourself to get the access.</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="regenerate_otp">Regenerate OTP</string>
+    <string name="landing_string">Enjoy fast and accurate text-to-speech \nConversion using Bhashini’s advanced technology</string>
+    <string name="enter_your_text">Enter your text input here</string>
     <string-array name="Languages">
         <item>--- Select language ---</item>
         <item>Assamese</item>
