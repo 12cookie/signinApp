@@ -133,6 +133,7 @@ class LandingActivity : AppCompatActivity()
             else
             {
                 audioLoader.visibility = View.VISIBLE
+                synthesize.textSize = 0F
                 synthesize.isEnabled = false
                 requestQueue = Volley.newRequestQueue(this)
                 getAudioServiceID(targetLanguage)
@@ -248,7 +249,7 @@ class LandingActivity : AppCompatActivity()
                 val firstItem = pipelineResponse.getJSONObject(0)
                 val output = firstItem.getJSONArray("output")
                 val outputItem = output.getJSONObject(0)
-                val responseText = outputItem.getString("target")
+                val responseText = outputItem.getString("target") + "    "
                 translateLoader.visibility = View.GONE
                 translatedText.text = responseText
                 Log.d("API", response.toString())
@@ -442,6 +443,7 @@ class LandingActivity : AppCompatActivity()
             mediaPlayer.setOnPreparedListener {
                 player -> player.start()
                 audioLoader.visibility = View.GONE
+                synthesize.textSize = 14F
                 audio.visibility=ImageView.VISIBLE
             }
             mediaPlayer.setOnCompletionListener { mp ->
