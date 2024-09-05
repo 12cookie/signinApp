@@ -10,7 +10,6 @@ android {
     defaultConfig {
         applicationId = "com.example.signinapp"
         minSdk = 24
-        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -33,6 +32,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding { enable = true }
 }
 
 dependencies {
@@ -42,14 +42,14 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    implementation (libs.pinview)
+    implementation(libs.pinview)
 
     implementation(libs.volley)
     implementation(libs.gson)
     implementation(libs.support.annotations)
     implementation(libs.androidx.annotation)
     implementation(libs.glide)
-    implementation (libs.androidx.cardview)
+    implementation(libs.androidx.cardview)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
