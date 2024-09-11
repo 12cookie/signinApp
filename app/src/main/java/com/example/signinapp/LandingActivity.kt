@@ -9,23 +9,30 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.ProgressBar
+import android.widget.RatingBar
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import com.example.signinapp.R.layout
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -38,6 +45,7 @@ class LandingActivity : AppCompatActivity()
     private lateinit var spinner: Spinner
     private lateinit var synthesize: Button
     private lateinit var logoutButton: ImageView
+    private lateinit var feedbackButton: Button
     private lateinit var serviceID: String
     private lateinit var auth: String
     private lateinit var authTranslation: String
@@ -54,7 +62,7 @@ class LandingActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_landing)
+        setContentView(layout.activity_landing)
 
         sText = findViewById(R.id.textInput)
         translatedText = findViewById(R.id.translatedText)
@@ -138,6 +146,11 @@ class LandingActivity : AppCompatActivity()
                 requestQueue = Volley.newRequestQueue(this)
                 getAudioServiceID(targetLanguage)
             }
+        }
+
+        feedbackButton = findViewById(R.id.feedback)
+        feedbackButton.setOnClickListener {
+            showFeedbackDialog()
         }
 
         logoutButton = findViewById(R.id.logout)
@@ -457,5 +470,36 @@ class LandingActivity : AppCompatActivity()
         {
             e.printStackTrace()
         }
+    }
+
+    private fun showFeedbackDialog()
+    {
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(layout.activity_popup, null)
+
+        val feedbackDialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        val translationAccuracyRatingBar: RatingBar = dialogView.findViewById(R.id.translation_accuracy)
+        val ttsAccuracyRatingBar: RatingBar = dialogView.findViewById(R.id.tts_accuracy)
+        val soundQualityRatingBar: RatingBar = dialogView.findViewById(R.id.sound_quality)
+        val appExperienceRatingBar: RatingBar = dialogView.findViewById(R.id.app_experience)
+        val submitButton: Button = dialogView.findViewById(R.id.submitRatingButton)
+
+        submitButton.setOnClickListener {
+            val translationRating = translationAccuracyRatingBar.rating
+            val ttsRating = ttsAccuracyRatingBar.rating
+            val soundQualityRating = soundQualityRatingBar.rating
+            val appExperienceRating = appExperienceRatingBar.rating
+            Toast.makeText(
+                this,
+                "Ratings Submitted:\nTranslation: $translationRating\nTTS: $ttsRating\nSound: $soundQualityRating\nExperience: $appExperienceRating",
+                Toast.LENGTH_LONG
+            ).show()
+            feedbackDialog.dismiss()
+        }
+        feedbackDialog.show()
     }
 }

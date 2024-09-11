@@ -39,6 +39,5 @@
         <activity
             android:name=".ConfirmPassword"
             android:exported="false" />
-
     </application>
 </manifest>
