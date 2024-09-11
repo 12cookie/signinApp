@@ -38,13 +38,18 @@
     <string name="regenerate_otp">Regenerate OTP</string>
     <string name="landing_string">Enjoy fast and accurate text-to-speech \n using Bhashini’s API</string>
     <string name="enter_your_text">Enter your text input here</string>
+    <string name="submit_feedback">Submit Feedback</string>
+    <string name="rate_experience">Rate the overall app experience</string>
+    <string name="rate_sound_quality">Rate the sound quality</string>
+    <string name="rate_text_to_speech_accuracy">Rate text-to-speech accuracy</string>
+    <string name="rate_translation_accuracy">Rate the translation accuracy</string>
+    <string name="submit_your_feedback">Submit Your Feedback</string>
     <string-array name="Languages">
         <item>--- Select language ---</item>
         <item>Assamese</item>
         <item>Bangla</item>
         <item>Gujarati</item>
         <item>Hindi</item>
-        <item>Kashmiri</item>
         <item>Kannada</item>
         <item>Malayalam</item>
         <item>Marathi</item>
@@ -52,15 +57,12 @@
         <item>Punjabi</item>
         <item>Tamil</item>
         <item>Telugu</item>
-        <item>Sindhi</item>
-        <item>Urdu</item>
     </string-array>
     <string-array name="Language_Code">
         <item>as</item>
         <item>bn</item>
         <item>gu</item>
         <item>hi</item>
-        <item>ks</item>
         <item>kn</item>
         <item>ml</item>
         <item>mr</item>
@@ -68,7 +70,5 @@
         <item>pa</item>
         <item>ta</item>
         <item>te</item>
-        <item>sd</item>
-        <item>ur</item>
     </string-array>
 </resources>
